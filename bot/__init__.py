@@ -19,35 +19,6 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 bot.remove_command("help")
 
 
-@bot.event
-async def on_ready():
-    await bot.change_presence(activity=discord.Game("!help"))
-    print(f"Ready. Connected to {', '.join([g.name for g in bot.guilds])}.")
-
-
-@bot.event
-async def on_member_join(member: discord.Member):
-    welcome = bot.get_channel(welcome_channel)
-    await welcome.send(
-        f"{member.mention} has joined this server!\n"
-        f"Welcome {member.mention}!\n"
-        f"Total Members = {member.guild.member_count}"
-    )
-
-
-@bot.event
-async def on_member_remove(member: discord.Member):
-    bye = bot.get_channel(bye_channel)
-    name = str(member).split("#")[0]
-    await bye.send(f"Bye {name}!\n" f"Total Members = {member.guild.member_count}")
-
-
-@bot.command(name="users", help="How many users are there in the server")
-async def user_count(ctx):
-    guild = ctx.guild
-    await ctx.send(f"There are {guild.member_count} people in {guild.name!r}")
-
-
 @bot.command(name="create_channel", help="Creates a channel")
 @commands.has_role("admin")
 async def create_channel(ctx: commands.Context, channel_name="new-channel"):
@@ -56,27 +27,6 @@ async def create_channel(ctx: commands.Context, channel_name="new-channel"):
     if not channel_exists:
         print(f"Creating a new channel {channel_name}")
         await guild.create_text_channel(channel_name)
-
-
-@bot.command()
-@commands.has_role("admin")
-async def load(ctx, ext):
-    bot.load_extension(f"cogs.{ext}")
-    await ctx.send(f"{ext} loaded")
-
-
-@bot.command()
-@commands.has_role("admin")
-async def unload(ctx, ext):
-    bot.unload_extension(f"cogs.{ext}")
-    await ctx.send(f"{ext} unloaded")
-
-
-@bot.command()
-@commands.has_role("admin")
-async def reload(ctx, ext):
-    bot.reload_extension(f"cogs.{ext}")
-    await ctx.send(f"{ext} reloaded")
 
 
 # Load all Cogs
