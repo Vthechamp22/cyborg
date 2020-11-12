@@ -1,22 +1,11 @@
-# TODO: Clear all messages
-# TODO: get profile_pic
-# TODO: pixelate
-# TODO: announce when clearing messages
-# TODO: Random number guessing game
-# TEST: Handle error when cog isn't loaded and you try to reload it
-# TODO: Meme adder
-# TODO: Finish Tictactoe
-
 from pathlib import Path
 import discord
+
 import os
 from discord.ext import commands
-from dotenv import load_dotenv
+from bot.utils.constants import Channels
 
-load_dotenv()
-TOKEN = os.getenv("TOKEN")
-
-assert TOKEN is not None, f"Token is {TOKEN!r}, please check .env"
+welcome_channel, bye_channel = Channels.welcome, Channels.bye
 
 
 def get_static(filename: str) -> Path:
@@ -29,9 +18,6 @@ intents.members = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 bot.remove_command("help")
 
-welcome_channel_id = 761266399078252575
-bye_channel_id = 761266399078252575
-
 
 @bot.event
 async def on_ready():
@@ -41,17 +27,18 @@ async def on_ready():
 
 @bot.event
 async def on_member_join(member: discord.Member):
-    welcome_channel = bot.get_channel(welcome_channel_id)
-    await welcome_channel.send(f"{member.mention} has joined this server!\
-\nWelcome {member.mention}!\nTotal Members = {member.guild.member_count}")
+    welcome = bot.get_channel(welcome_channel)
+    await welcome.send(f"{member.mention} has joined this server!\n"
+                       f"Welcome {member.mention}!\n"
+                       f"Total Members = {member.guild.member_count}")
 
 
 @bot.event
 async def on_member_remove(member: discord.Member):
-    bye_channel = bot.get_channel(bye_channel_id)
+    bye = bot.get_channel(bye_channel)
     name = str(member).split("#")[0]
-    await bye_channel.send(f"Bye {name}!\
-\nTotal Members = {member.guild.member_count}")
+    await bye.send(f"Bye {name}!\n"
+                           f"Total Members = {member.guild.member_count}")
 
 
 @bot.command(name="users", help="How many users are there in the server")
@@ -92,9 +79,9 @@ async def reload(ctx, ext):
 
 
 # Load all Cogs
-for filename in os.listdir(Path("cogs")):
+for filename in os.listdir(Path("bot", "cogs")):
     if filename.endswith(".py"):
-        bot.load_extension(f"cogs.{filename[:-3]}")
+        bot.load_extension(f"bot.cogs.{filename[:-3]}")
 
 
 @bot.command()
@@ -103,12 +90,14 @@ async def help(ctx):
                               description="Help on commands",
                               color=0x0077B6)
 
-    embed_msg.set_thumbnail(url="https://cdn.discordapp.com/avatars/\
-732582128134389830/8265922627d3cdab6d7a7af15709ef5f.png?size=256")
+    embed_msg.set_thumbnail(url=(
+        "https://cdn.discordapp.com/avatars/"
+        "732582128134389830/8265922627d3cdab6d7a7af15709ef5f.png?size=256"
+    ))
 
     for command in bot.commands:
         embed_msg.add_field(name=command,
-                            value=command.help + "\n",
+                            value=command.help,  # + "\n",
                             inline=False)
     embed_msg.set_footer(
         text="You can type out the command for more information")
@@ -123,6 +112,3 @@ async def on_command_error(ctx: commands.Context, err):
             "You do not have the correct role for this command :eyes:")
     else:
         await ctx.send(", ".join(err.args))
-
-
-bot.run(TOKEN)

@@ -8,7 +8,7 @@ from discord.ext.commands.context import Context
 from discord.ext.commands import Bot
 from pathlib import Path
 
-ttt_path = Path("resources", "tictactoe.json")
+ttt_path = Path("bot", "resources", "tictactoe.json")
 
 with ttt_path.open("r") as f:
     data = json.load(f)

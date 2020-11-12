@@ -3,8 +3,8 @@ from discord.ext.commands.context import Context
 
 
 class Server(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     # Events
     @commands.Cog.listener()
@@ -21,5 +21,5 @@ class Server(commands.Cog):
         ]))
 
 
-def setup(client):
-    client.add_cog(Server(client))
+def setup(bot):
+    bot.add_cog(Server(bot))

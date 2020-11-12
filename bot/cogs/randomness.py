@@ -3,9 +3,9 @@ import random
 
 
 class Random(commands.Cog):
-    def __init__(self, client):
+    def __init__(self, bot):
         # super().__init__()
-        self.client = client
+        self.bot = bot
 
     @commands.command(
         name="roll",
@@ -59,5 +59,5 @@ result",
         await ctx.send(random.choice(outcomes))
 
 
-def setup(client):
-    client.add_cog(Random(client))
+def setup(bot):
+    bot.add_cog(Random(bot))

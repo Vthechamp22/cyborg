@@ -5,8 +5,8 @@ from discord.ext import commands
 
 
 class Math(commands.Cog):
-    def __init__(self, client) -> None:
-        self.client = client
+    def __init__(self, bot) -> None:
+        self.bot = bot
 
     @commands.command(name="add",
                       aliases=["+", "plus"],
@@ -85,5 +85,5 @@ is **{prod}**')
         await ctx.send(f"{ctx.author.mention} {n1} ÷ {n2} is **{res}**")
 
 
-def setup(client):
-    client.add_cog(Math(client))
+def setup(bot):
+    bot.add_cog(Math(bot))

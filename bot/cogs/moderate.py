@@ -3,8 +3,8 @@ from discord.ext import commands
 
 
 class Moderation(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.command(name="kick", help="Kicks a member")
     @commands.has_role("admin")
@@ -55,5 +55,5 @@ class Moderation(commands.Cog):
         await ctx.channel.purge(limit=amt + 1)
 
 
-def setup(client):
-    client.add_cog(Moderation(client))
+def setup(bot):
+    bot.add_cog(Moderation(bot))
