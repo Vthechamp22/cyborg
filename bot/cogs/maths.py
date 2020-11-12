@@ -8,9 +8,9 @@ class Math(commands.Cog):
     def __init__(self, bot) -> None:
         self.bot = bot
 
-    @commands.command(name="add",
-                      aliases=["+", "plus"],
-                      help="Add numbers (or words :smirk:)")
+    @commands.command(
+        name="add", aliases=["+", "plus"], help="Add numbers (or words :smirk:)"
+    )
     async def add(self, ctx, *args):
         if len(args) == 0:
             await ctx.send("Please tell in numbers to add!")
@@ -25,12 +25,11 @@ class Math(commands.Cog):
             if summed.is_integer():
                 summed = int(summed)
 
-        await ctx.send(
-            f'{ctx.author.mention} {" + ".join(args)}  is **{summed}**')
+        await ctx.send(f'{ctx.author.mention} {" + ".join(args)}  is **{summed}**')
 
-    @commands.command(name="subtract",
-                      aliases=["minus", "-"],
-                      help="Subtract two numbers")
+    @commands.command(
+        name="subtract", aliases=["minus", "-"], help="Subtract two numbers"
+    )
     async def subtract(self, ctx, n1=None, n2=None):
         if n1 is None or n2 is None:
             await ctx.send("Please specify two numbers!")
@@ -53,8 +52,10 @@ class Math(commands.Cog):
             await ctx.send("Please tell in numbers to add!")
             return
         elif len(args) == 2 and args[1].isdigit() and not args[0].isdigit():
-            await ctx.send(f'{ctx.author.mention} {" × ".join(args)}  \
-is **{args[0] * int(args[1])}**')
+            await ctx.send(
+                f'{ctx.author.mention} {" × ".join(args)}  \
+is **{args[0] * int(args[1])}**'
+            )
             return
         elif not all([arg.isdigit() for arg in args]):
             await ctx.send("Please type only numbers!")
@@ -63,12 +64,12 @@ is **{args[0] * int(args[1])}**')
         prod = math.prod(floatargs)
         if prod.is_integer():
             prod = int(prod)
-        await ctx.send(f'{ctx.author.mention} {" × ".join(args)}  \
-is **{prod}**')
+        await ctx.send(
+            f'{ctx.author.mention} {" × ".join(args)}  \
+is **{prod}**'
+        )
 
-    @commands.command(name="div",
-                      aliases=["/", "divide"],
-                      help="Divides two numbers")
+    @commands.command(name="div", aliases=["/", "divide"], help="Divides two numbers")
     async def divide(self, ctx, n1=None, n2=None):
         if n1 is None or n2 is None:
             await ctx.send("Please specify two numbers!")

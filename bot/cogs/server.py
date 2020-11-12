@@ -15,10 +15,14 @@ class Server(commands.Cog):
     async def get_reactions(ctx: Context, *, url: str):
         message_id = url.split("/")[-1]
         msg = await ctx.fetch_message(message_id)
-        await ctx.send(", ".join([
-            f"{reaction.count} reaction(s) of the {reaction.emoji}"
-            for reaction in msg.reactions
-        ]))
+        await ctx.send(
+            ", ".join(
+                [
+                    f"{reaction.count} reaction(s) of the {reaction.emoji}"
+                    for reaction in msg.reactions
+                ]
+            )
+        )
 
 
 def setup(bot):

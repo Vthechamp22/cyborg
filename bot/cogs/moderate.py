@@ -8,10 +8,9 @@ class Moderation(commands.Cog):
 
     @commands.command(name="kick", help="Kicks a member")
     @commands.has_role("admin")
-    async def kick(self,
-                   ctx: commands.Context,
-                   member: discord.Member = None,
-                   reason=None):
+    async def kick(
+        self, ctx: commands.Context, member: discord.Member = None, reason=None
+    ):
         if member is None:
             await ctx.send("Please give in a member name!")
             return
@@ -37,10 +36,9 @@ class Moderation(commands.Cog):
 
     @commands.command(name="ban", help="Bans a member")
     @commands.has_role("admin")
-    async def ban(self,
-                  ctx: commands.Context,
-                  member: discord.Member = None,
-                  reason=None):
+    async def ban(
+        self, ctx: commands.Context, member: discord.Member = None, reason=None
+    ):
         if member is None:
             await ctx.send("Please give in a member name!")
             return
@@ -48,8 +46,8 @@ class Moderation(commands.Cog):
         await ctx.send(f"Banned {member.name}")
 
     @commands.command(
-        name="clear",
-        help="Clear the number of messages specified (5 by default)")
+        name="clear", help="Clear the number of messages specified (5 by default)"
+    )
     @commands.has_role("admin")
     async def clear(self, ctx: commands.Context, amt: int = 5):
         await ctx.channel.purge(limit=amt + 1)

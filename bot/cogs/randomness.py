@@ -12,13 +12,12 @@ class Random(commands.Cog):
         help="Rolls a dice and returns a random \
 number",
     )
-    async def roll(self,
-                   ctx: commands.context.Context,
-                   s: int = 6,
-                   d: int = 1):
+    async def roll(self, ctx: commands.context.Context, s: int = 6, d: int = 1):
         rsp = list(map(str, [random.randint(1, s) for _ in range(d)]))
-        await ctx.send(f"{ctx.author.mention} rolled {d} dice with {s} sides \
-and got {', '.join(rsp)}")
+        await ctx.send(
+            f"{ctx.author.mention} rolled {d} dice with {s} sides \
+and got {', '.join(rsp)}"
+        )
 
     @commands.command(
         name="toss",
@@ -26,8 +25,10 @@ and got {', '.join(rsp)}")
 result",
     )
     async def toss(self, ctx: commands.context.Context):
-        await ctx.send(f"{ctx.author.mention}... it's \
-{random.choice(['tails', 'heads'])}!")
+        await ctx.send(
+            f"{ctx.author.mention}... it's \
+{random.choice(['tails', 'heads'])}!"
+        )
 
     @commands.command(name="8ball", help="Gives back a random 8ball response")
     async def _8ball(self, ctx: commands.Context, *, q=None):

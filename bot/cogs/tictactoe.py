@@ -66,7 +66,8 @@ class Tictactoe(commands.Cog):
             f"**{ctx.author.mention}** has invited you to a game \
 of tictactoe!\nGo to **{ctx.guild.name!r}** and type `!accept_t` to accept the\
 invite or\
-`!decline_t` to decline it.")
+`!decline_t` to decline it."
+        )
 
     @commands.command(name="play_t")
     async def play_tictactoe(self, ctx, A: str, N: int):
@@ -82,12 +83,13 @@ invite or\
             if data[player]["invited"] == str(ctx.author):
                 if data[player]["other"] == str(ctx.author):
                     await ctx.send(
-                        "You have already accepted the challenge."
-                        " :neutral_face:"
+                        "You have already accepted the challenge." " :neutral_face:"
                     )
                     return
-                await ctx.send(f"{ctx.author.mention} has accepted \
-{ctx.guild().get_member_named(player).mention}'s challenge!")
+                await ctx.send(
+                    f"{ctx.author.mention} has accepted \
+{ctx.guild().get_member_named(player).mention}'s challenge!"
+                )
             data[player]["other"] = str(ctx.author)
             update()
             return

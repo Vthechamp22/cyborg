@@ -8,8 +8,7 @@ class User(commands.Cog):
         self.bot = bot
 
     @commands.command(name="userinfo")
-    async def user_info(self, ctx: Context, *,
-                        user: discord.User):  # Discord.Member?
+    async def user_info(self, ctx: Context, *, user: discord.User):  # Discord.Member?
         await ctx.send(f"{user.created_at}")
 
 
