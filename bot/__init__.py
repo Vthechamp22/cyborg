@@ -49,8 +49,10 @@ async def help(ctx):
     )
 
     for command in bot.commands:
-        embed_msg.add_field(name=command, value=command.help, inline=False)  # + "\n",
-    embed_msg.set_footer(text="You can type out the command for more information")
+        embed_msg.add_field(name=command, value=command.help,
+                            inline=False)  # + "\n",
+    embed_msg.set_footer(
+        text="You can type out the command for more information")
 
     await ctx.send(embed=embed_msg)
 

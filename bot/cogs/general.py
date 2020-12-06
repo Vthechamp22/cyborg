@@ -1,4 +1,4 @@
-from discord import Guild
+# from discord import Guild
 from discord.channel import TextChannel
 from discord.ext import commands
 from discord.ext.commands.cog import Cog
